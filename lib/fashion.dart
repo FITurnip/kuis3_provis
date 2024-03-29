@@ -16,9 +16,6 @@ class _Fashion extends State<Fashion> {
     Image.network('https://picsum.photos/id/22/500/200'),
   ];
 
-  int idx = 0; //index yang aktif
-  
-  //isi body akan sesuai index
   static const List<Center> halaman = [
     Center(child: Text("satu")),
     Center(child: Text("dua")),
@@ -32,7 +29,7 @@ class _Fashion extends State<Fashion> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(200.0), // Set your preferred height here
+        preferredSize: Size.fromHeight(200.0),
         child: AppBar(
           automaticallyImplyLeading: false,
           flexibleSpace: Container(
@@ -91,12 +88,10 @@ class _Fashion extends State<Fashion> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: idx,
         selectedItemColor: Colors.black,
         unselectedItemColor: Colors.grey[600],
-        onTap: (index) {
-          // idx = index;
-        }, //event saat button di tap
+        selectedFontSize: 10,
+        unselectedFontSize: 10,
         items: [
           BottomNavigationBarItem(
             icon: GestureDetector(
