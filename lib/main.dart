@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kuis3_provis/fashion.dart';
 
 void main() {
   runApp(const MyApp());
@@ -69,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: () {
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (context) {
-                    return soalNo2();
+                    return Fashion(context: context);
                   }));
                 },
                 child: const Text('   Jawaban No 2   '),
@@ -88,14 +89,5 @@ class _MyHomePageState extends State<MyHomePage> {
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         ),
         body: const Text("ini jawaban no 1"));
-  }
-
-  //jaawaban no 2
-  Widget soalNo2() {
-    return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        ),
-        body: const Text("ini jawaban no 2"));
   }
 }
