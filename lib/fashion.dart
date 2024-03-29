@@ -1,6 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter/widgets.dart';
 
 class Fashion extends StatelessWidget {
   List<Image> carouselItems = [
@@ -15,7 +16,17 @@ class Fashion extends StatelessWidget {
   }) : super(key: key);
 
   final BuildContext context;
-
+  int idx = 0; //index yang aktif
+  
+  //isi body akan sesuai index
+  static const List<Center> halaman = [
+    Center(child: Text("satu")),
+    Center(child: Text("dua")),
+    Center(child: Text("tiga")),
+    Center(child: Text("empat")),
+    Center(child: Text("lima")),
+  ];
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,9 +84,29 @@ class Fashion extends StatelessWidget {
           ),
         ),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: idx,
+        selectedItemColor: Colors.red,
+        unselectedItemColor: Colors.grey,
+        onTap: (index) {
+          // idx = index;
+        }, //event saat button di tap
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Kategori"),
+          BottomNavigationBarItem(icon: Icon(Icons.qr_code), label: "Scan"),
+          BottomNavigationBarItem(icon: Icon(Icons.shopping_basket), label: "List Belanja"),
+          BottomNavigationBarItem(icon: Icon(Icons.account_circle_rounded), label: "Akun"),
+        ],
+        showSelectedLabels: true,
+        showUnselectedLabels :true,
+        selectedFontSize: 10.0,
+        unselectedFontSize: 10.0,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Align(
               alignment: Alignment.centerLeft,
