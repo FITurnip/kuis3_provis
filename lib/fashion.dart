@@ -1,21 +1,21 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/widgets.dart';
 
-class Fashion extends StatelessWidget {
+class Fashion extends StatefulWidget {
+  final BuildContext context;
+  Fashion({required this.context});
+
+  @override
+  _Fashion createState() => _Fashion();
+}
+
+class _Fashion extends State<Fashion> {
   List<Image> carouselItems = [
     Image.network('https://picsum.photos/id/10/500/200'),
     Image.network('https://picsum.photos/id/11/500/200'),
     Image.network('https://picsum.photos/id/22/500/200'),
   ];
 
-  Fashion({
-    Key? key,
-    required this.context,
-  }) : super(key: key);
-
-  final BuildContext context;
   int idx = 0; //index yang aktif
   
   //isi body akan sesuai index
@@ -26,10 +26,11 @@ class Fashion extends StatelessWidget {
     Center(child: Text("empat")),
     Center(child: Text("lima")),
   ];
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(200.0), // Set your preferred height here
         child: AppBar(
@@ -43,169 +44,251 @@ class Fashion extends StatelessWidget {
               ),
             ),
           ),
-          title: SingleChildScrollView(
-            child: Container(
-              padding: const EdgeInsets.all(5.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      child: TextField(
-                        decoration: InputDecoration(
-                          hintText: 'Cari barang di Tokoo',
-                          border: InputBorder.none,
-                          icon: Icon(Icons.search),
-                        ),
+          title: Container(
+            padding: const EdgeInsets.all(5.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10.0),
+                      border: Border.all(
+                        color: Colors.black,
+                      )
+                    ),
+                    child: const TextField(
+                      decoration: InputDecoration(
+                        hintText: 'Cari barang di Tokoo',
+                        border: InputBorder.none,
+                        icon: Icon(Icons.search),
                       ),
                     ),
                   ),
-                  SizedBox(width: 10),
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.shopping_cart, color: Colors.white,),
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.notifications, color: Colors.white,),
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.message, color: Colors.white,),
-                  ),
-                ],
-              ),
+                ),
+                const SizedBox(width: 20.0,),
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.shopping_cart, color: Colors.white,),
+                    ),
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.notifications, color: Colors.white,),
+                    ),
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.message, color: Colors.white,),
+                    ),
+                  ],
+                )
+              ],
             ),
           ),
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: idx,
-        selectedItemColor: Colors.red,
-        unselectedItemColor: Colors.grey,
+        selectedItemColor: Colors.black,
+        unselectedItemColor: Colors.grey[600],
         onTap: (index) {
           // idx = index;
         }, //event saat button di tap
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Kategori"),
-          BottomNavigationBarItem(icon: Icon(Icons.qr_code), label: "Scan"),
-          BottomNavigationBarItem(icon: Icon(Icons.shopping_basket), label: "List Belanja"),
-          BottomNavigationBarItem(icon: Icon(Icons.account_circle_rounded), label: "Akun"),
+        items: [
+          BottomNavigationBarItem(
+            icon: GestureDetector(
+              child: Tooltip(
+                message: 'Home',
+                child: Container(
+                  padding: const EdgeInsets.only(top: 2, bottom: 2, left: 15, right: 15),
+                  decoration: BoxDecoration(
+                    color: Colors.yellow[600],
+                    borderRadius: BorderRadius.circular(15)
+                  ),
+                  child: const Icon(Icons.home),
+                )
+              )
+            ),
+            label: 'Home'
+          ),
+          BottomNavigationBarItem(
+            icon: GestureDetector(
+              child: Tooltip(
+                message: 'Kategori',
+                child: Container(
+                  padding: const EdgeInsets.only(top: 2, bottom: 2, left: 15, right: 15),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15)
+                    ),
+                  child: const Icon(Icons.category),
+                ),
+              ),
+            ),
+            label: "Kategori"
+          ),
+          BottomNavigationBarItem(
+            icon: GestureDetector(
+              child: const Tooltip(
+                message: 'Scan',
+                child: Icon(Icons.qr_code),
+              ),
+            ),
+            label: "Scan"
+          ),
+          BottomNavigationBarItem(
+            icon: GestureDetector(
+              child: const Tooltip(
+                message: 'List Belanja',
+                child: Icon(Icons.shopping_basket),
+              ),
+            ),
+            label: "List Belanja"
+          ),
+          BottomNavigationBarItem(
+            icon: GestureDetector(
+              child: const Tooltip(
+                message: 'Akun',
+                child: Icon(Icons.account_circle_rounded),
+              ),
+            ),
+            label: "Akun"
+          ),
         ],
         showSelectedLabels: true,
         showUnselectedLabels :true,
-        selectedFontSize: 10.0,
-        unselectedFontSize: 10.0,
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const Align(
+            const Align( 
               alignment: Alignment.centerLeft,
               child: Text("Hi, Budi!", style: TextStyle(fontSize: 20.0)),
             ),
-            Expanded(
-              child: GridView(
-                padding: const EdgeInsets.all(20),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
+            Padding(
+              padding: const EdgeInsets.all(25.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey[200],
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    color: Colors.black,
+                  )
                 ),
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(7.5),
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Icon(Icons.wallet),
-                        Expanded(
-                          child: Text(
-                            "Store Credit Rp.0",
-                            overflow: TextOverflow.clip,
-                            style: TextStyle(fontSize: 13)
-                          ),
-                        )
-                      ],
+                padding: const EdgeInsets.only(
+                  top: 10,
+                  bottom: 10,
+                  left: 20,
+                  right: 20,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      child: Row(
+                        children: [
+                          const Icon(Icons.wallet, color: Colors.brown),
+                          Container(
+                            child: Text(
+                              "Store Credit Rp.0",
+                              overflow: TextOverflow.clip,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 12),
+                            ),
+                            width: 50,
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(7.5),
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Icon(Icons.payment),
-                        Expanded(
-                          child: Text(
-                            "Reward Point 100 Point",
-                            overflow: TextOverflow.clip,
-                            style: TextStyle(fontSize: 13)
-                          ),
-                        )
-                      ],
+                    Container(
+                      width: 1,
+                      height: 50,
+                      color: Colors.black,
                     ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(7.5),
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Icon(Icons.payment),
-                        Expanded(
-                          child: Text(
-                            "Kupon Saya 11 Kupon",
-                            overflow: TextOverflow.clip,
-                            style: TextStyle(fontSize: 13)
-                          ),
-                        )
-                      ],
+                    Container(
+                      child: Row(
+                        children: [
+                          Icon(Icons.loyalty, color: Colors.brown),
+                          Container(
+                            child: Text(
+                              "Reward Point 100 Point",
+                              overflow: TextOverflow.clip,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 12),
+                            ),
+                            width: 50,
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                    Container(
+                      width: 1,
+                      height: 50,
+                      color: Colors.black,
+                    ),
+                    Container(
+                      child: Row(
+                        children: [
+                          Icon(Icons.confirmation_num, color: Colors.brown),
+                          Container(
+                            child: Text(
+                              "Kupon Saya 11 Kupon",
+                              overflow: TextOverflow.clip,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 12),
+                            ),
+                            width: 50,
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Container(
-                  child: Column(
-                    children: [
-                      IconButton(onPressed: () {}, icon: Icon(Icons.storefront), iconSize: 34,),
-                      Text("Official Store")
-                    ],
+            Padding(
+              padding: const EdgeInsets.only(bottom:10, left: 20.0, right: 20.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    child: Column(
+                      children: [
+                        IconButton(onPressed: () {}, icon: const Icon(Icons.storefront), iconSize: 34,),
+                        const Text("Official Store")
+                      ],
+                    ),
                   ),
-                ),
-                Container(
-                  child: Column(
-                    children: [
-                      IconButton(onPressed: () {}, icon: Icon(Icons.local_fire_department_rounded), iconSize: 34, color: Colors.red,),
-                      Text("Hot Deal")
-                    ],
+                  Container(
+                    child: Column(
+                      children: [
+                        IconButton(onPressed: () {}, icon: const Icon(Icons.local_fire_department_rounded), iconSize: 34, color: Colors.red[700],),
+                        const Text("Hot Deal")
+                      ],
+                    ),
                   ),
-                ),
-                Container(
-                  child: Column(
-                    children: [
-                      IconButton(onPressed: () {}, icon: Icon(Icons.storefront), iconSize: 34,),
-                      Text("Fashion")
-                    ],
+                  Container(
+                    child: Column(
+                      children: [
+                        IconButton(onPressed: () {}, icon: Icon(Icons.checkroom), iconSize: 34,),
+                        const Text("Fashion")
+                      ],
+                    ),
                   ),
-                ),
-                Container(
-                  child: Column(
-                    children: [
-                      IconButton(onPressed: () {}, icon: Icon(Icons.face_retouching_natural), iconSize: 34,),
-                      Text("Komestik")
-                    ],
-                  ),
-                )
-              ],
+                  Container(
+                    child: Column(
+                      children: [
+                        IconButton(onPressed: () {}, icon: const Icon(Icons.face_retouching_natural), iconSize: 34,),
+                        const Text("Komestik")
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
             CarouselSlider(
               items: carouselItems,
