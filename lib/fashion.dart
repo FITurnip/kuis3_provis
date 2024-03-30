@@ -3,7 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 
 class Fashion extends StatefulWidget {
   final BuildContext context;
-  Fashion({required this.context});
+  Fashion({super.key, required this.context});
 
   @override
   _Fashion createState() => _Fashion();

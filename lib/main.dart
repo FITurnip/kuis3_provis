@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kuis3_provis/fashion.dart';
+import 'package:kuis3_provis/profile.dart';
 
 void main() {
   runApp(const MyApp());
@@ -47,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
               'Nomor Kelompok:  [8]',
             ),
             const Text(
-              'Mhs 1:  [isi nim, Roshan Syalwan Nurilham]',
+              'Mhs 1:  [2203142, Roshan Syalwan Nurilham]',
             ),
             const Text(
               'Mhs 2:  [2203211, Franklin Impianro Turnip]',
@@ -58,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: () {
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (context) {
-                    return soalNo1();
+                    return Profile(context: context);
                   }));
                 },
                 child: const Text('   Jawaban No 1   '),
@@ -80,14 +81,5 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
     );
-  }
-
-  //jaawaban no 1
-  Widget soalNo1() {
-    return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        ),
-        body: const Text("ini jawaban no 1"));
   }
 }
